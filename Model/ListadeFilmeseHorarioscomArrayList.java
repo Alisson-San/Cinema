@@ -13,7 +13,26 @@ public class ListadeFilmeseHorarioscomArrayList implements ILista {
     private ArrayList<Sala> _salas = new ArrayList<Sala>();
     private ArrayList<Horario> _horarios = new ArrayList<Horario>();
     private ArrayList<Funcionario> _funcionarios = new ArrayList<Funcionario>();
+    
+    @Override
+    public ArrayList<Genero> get_filmesPorGenero() {
+        return _filmesPorGenero;
+    }
 
+    @Override
+    public ArrayList<Sala> get_salas() {
+        return _salas;
+    }
+
+    @Override
+    public ArrayList<Horario> get_horarios() {
+        return _horarios;
+    }
+
+    @Override
+    public ArrayList<Funcionario> get_funcionarios() {
+        return _funcionarios;
+    }
 
     @Override
     public void RegistrarFilme(Genero novoFilme) {
