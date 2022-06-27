@@ -34,7 +34,11 @@ public class Exibicao{
     }
 
     public void ListarSalas(ArrayList<Sala> listaSalas) {
-        for (Sala salas : listaSalas) {
+        for (Sala salas : listaSalas) 
+        {
+            System.out.println("Numero da sala: " +salas.getNumeroSala()+ "\n");
+        	System.out.println("Nome da sala: " +salas.getNome()+ "\n");
+        	System.out.println("Capacidade da sala: " +salas.getCapacidade()+ "\n");
         }
     }
 
