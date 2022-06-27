@@ -33,6 +33,11 @@ public class Exibicao{
         ListarSalas(_registros.get_salas());
     }
 
+    public ArrayList<Horario> listaDeHorarios(){
+
+        return _registros.get_horarios();
+    }
+
     public void ListarSalas(ArrayList<Sala> listaSalas) {
         for (Sala salas : listaSalas) 
         {

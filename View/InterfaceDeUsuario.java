@@ -2,29 +2,29 @@ package View;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
- 
+
+import Cinema.Horario;
+import Exception.ExceptionHorarioJaCadastrado;
 import Model.Exibicao;
 
 public class InterfaceDeUsuario {
 	
 	private Scanner entrada = new Scanner(System.in);
 	
-	private Exibicao exibir;
+	private Exibicao exibir = new Exibicao();
 	
 	int i;
-	public void menu(){
+	public void menu() throws ExceptionHorarioJaCadastrado{
 		
 		int opcao = this.escolherOpcao();
 		while(opcao != 0) {
+            try{
 			switch(opcao) {
 			case 1://cadastrar um filme
-				try {
-					this.cadastroDeFilme();
-				} catch (ParseException erro) {
-					System.out.println(erro.getMessage());
-				}
+                cadastros();
 			break;
 			case 2://cadastrar uma sala
 				this.cadastroDeSala();
@@ -42,18 +42,84 @@ public class InterfaceDeUsuario {
 				this.consultarSalas();
 			break;
 			}
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
 			opcao = this.escolherOpcao();
 		}
 	}
 	
-	private int escolherOpcao() {
+	private void cadastros() throws ExceptionHorarioJaCadastrado, ParseException {
+        int opcadastro = escolherCadastro();
+        while(opcadastro != 0 ){
+          
+            switch(opcadastro){
+                case 1:
+                    cadastroDeFilme();
+                    break;
+                case 2:
+                    cadastroDeSala();
+                    break;
+                case 3:
+                    cadastroDeHorario();
+                    break;
+                case 4:
+                    cadastroDeFuncionario();
+                    break;
+                case 5:
+                    cadastroDeExibicao();
+                    break;
+                default:
+                    System.out.println("Opção não Reconhecida\n Escolha novamente \n");
+            }
+
+            opcadastro = escolherCadastro();
+        }
+    }
+
+    private void cadastroDeExibicao() {
+    }
+
+    private void cadastroDeHorario() throws ExceptionHorarioJaCadastrado {
+        System.out.println("Digite um codigo de horario de exibição: ");
+        int codHorario = entrada.nextInt();
+        System.out.println("Digite um horario: ");
+        int novoHorario = entrada.nextInt();
+        while(novoHorario < 0 || novoHorario > 24){
+            System.out.println("O horario deve ser entre 0 e 23, Digite novamente o horario: ");
+            novoHorario = entrada.nextInt();
+        }
+
+        ArrayList<Horario> Horarios = exibir.listaDeHorarios();
+    
+        for (Horario horario : Horarios) {
+            if(horario.getCodHorario() == codHorario || novoHorario == horario.getHorario()){
+                throw new ExceptionHorarioJaCadastrado();
+            }
+        }
+
+        exibir.InserirHorario(novoHorario, codHorario);
+
+    }
+
+    private int escolherCadastro() {
+        System.out.println("0.Sair");
+		System.out.println("1.Cadastrar Filme");
+		System.out.println("2.Cadastrar informações de Sala");
+		System.out.println("3.Cadastrar Horario");
+        System.out.println("4.Cadastrar Funcionario");
+        System.out.println("5.Cadastrar uma Exibição"); 
+		return entrada.nextInt();
+    }
+
+    private int escolherOpcao() {
 		System.out.println("0.Sair");
-		System.out.println("1.Cadastrar filme");
-		System.out.println("2.Cadastrar funcionario");
-		System.out.println("3.Cadastras sala");
-		System.out.println("4.Apresentar filmes");
-		System.out.println("5.Apresentar funcionarios");
-		System.out.println("6.Consultar filmes e salas");
+		System.out.println("1.Cadastros");
+		System.out.println("2.Listagem de Cadastros");
+		System.out.println("3.Listar Todas as Exibições");
+        System.out.println("4.Verificar Horarios de Exibição de um Filme");
 		return entrada.nextInt();
 	}
 	
