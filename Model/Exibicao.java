@@ -58,5 +58,9 @@ public class Exibicao{
         }
 
     }
+
+    public ArrayList<Genero> getFilmes() {
+        return _registros.get_filmesPorGenero();
+    }
     
 } 
