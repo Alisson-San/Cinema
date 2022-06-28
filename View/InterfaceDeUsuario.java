@@ -9,7 +9,6 @@ import java.util.Scanner;
 import Cinema.Horario;
 import Exception.ExceptionFilmeJaCadastrado;
 import Exception.ExceptionHorarioJaCadastrado;
-import Filme.Filme;
 import Filme.Genero;
 import Model.Exibicao;
 
