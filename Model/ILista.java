@@ -2,6 +2,7 @@ package Model;
 
 import java.io.Serializable;
 
+
 public interface ILista<T extends Comparable<T>> extends Serializable{
     
 	public void adicionar(T objeto);
@@ -14,5 +15,7 @@ public interface ILista<T extends Comparable<T>> extends Serializable{
 	// retorna o Produto que est� na posi��o indicada pelo �ndice na Lista
 
 	public void ordena();
+
+    public void set(int j, T Object);
 
 }

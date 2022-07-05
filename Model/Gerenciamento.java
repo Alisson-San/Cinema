@@ -1,7 +1,7 @@
 package Model;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
 
 import Cinema.Funcionario;
 import Cinema.Horario;
@@ -14,14 +14,29 @@ import Filme.Genero;
 
 public class Gerenciamento implements Serializable{
     
+    private transient Persistencia persist = new Persistencia();
+	private transient Ordenador ordenador = new Ordenador();
+
     private static final long serialVersionUID = 234L;
 	private ILista<Exibicao> exibicoes = new ListaComArrayList<Exibicao>();
     private ILista<Filme> filmes = new ListaComArrayList<Filme>();
-
-
     private ILista<Funcionario> funcionarios = new ListaComArrayList<Funcionario>();
     private ILista<Sala> salas = new ListaComArrayList<Sala>();
 
+
+	public void carregarDados() {
+		exibicoes = persist.CarregarExibicao();
+		salas = persist.carregaSalas();
+		filmes = persist.carregaFilmes();
+		funcionarios = persist.carregaFuncionarios();
+	}
+
+    public void salvarDados() {
+		persist.salvarExibicao(exibicoes);
+		persist.salvarSalas(salas);
+		persist.salvarFilme(filmes);
+		persist.salvarFuncionarios(funcionarios);
+	}
 
     public void RegistraFilme(Genero filme) throws ExceptionFilmeJaCadastrado{
         
@@ -33,6 +48,12 @@ public class Gerenciamento implements Serializable{
         }
 
         filmes.adicionar(filme);
+    }
+
+    public void RegistraExibicao(Exibicao exibi){
+        
+
+        exibicoes.adicionar(exibi);
     }
 
     public void RegistraFuncionario(Funcionario func) throws ExceptionFuncionarioJaCadastrado{
@@ -95,11 +116,11 @@ public class Gerenciamento implements Serializable{
         return temp;
     }
 
-    public Filme AtribuirFilme(int id){
-        Filme temp = null;
+    public Genero AtribuirFilme(int id){
+        Genero temp = null;
 
         for(int i = 0; i < filmes.tamanho();i++){
-            temp = filmes.get(i);
+            temp = (Genero) filmes.get(i);
         }
         return temp;
     }
@@ -107,7 +128,7 @@ public class Gerenciamento implements Serializable{
     public Sala AtribuirSala(int id){
         Sala temp = null;
 
-        for(int i = 0; i < filmes.tamanho();i++){
+        for(int i = 0; i < salas.tamanho();i++){
             temp = salas.get(i);
         }
         return temp;
@@ -116,39 +137,38 @@ public class Gerenciamento implements Serializable{
     public Funcionario AtribuirFunc(int id){
         Funcionario temp = null;
 
-        for(int i = 0; i < filmes.tamanho();i++){
+        for(int i = 0; i < funcionarios.tamanho();i++){
             temp = funcionarios.get(i);
         }
         return temp;
     }
 
-    public int[] OcupacaHoraio(Sala auxSala){
-        int[] horarios = null;
+    public ArrayList<Integer> OcupacaHoraio(Sala auxSala){
+        ArrayList<Integer> horarios =new ArrayList<>();
 
         if(exibicoes.tamanho() !=0){
         for(int i = 0; i < exibicoes.tamanho(); i++){
             if(exibicoes.get(i).getSala().getNumeroSala() == auxSala.getNumeroSala()){
-                horarios = add_element(exibicoes.get(i).getHora().getCodHorario(), horarios, ele)
+                horarios.add(exibicoes.get(i).getSala().getNumeroSala());
             }
         }
     }
-        return null;
+        return horarios;
         
-    }
-
-    public static int[] add_element(int n, int myarray[], int ele) 
-    { 
-         int i; 
- 
-         int newArray[] = new int[n + 1]; 
-        //copy original array into new array
-        for (i = 0; i &lt; n; i++) 
-              newArray[i] = myarray[i]; 
- 
-        //add element to the new array
-        newArray[n] = ele; 
- 
-        return newArray; 
     } 
- 
+
+    private void mostrarTodasExibicoes() { 
+		for(int i=0; i<filmes.tamanho(); i++) {
+			System.out.println(filmes.get(i).toString());
+		}
+	}
+    
+    public void ordenar() {
+		System.out.println("Antes:");
+		mostrarTodasExibicoes(); //Usado apenas para mostrar a ordenacao
+		System.out.println("");
+		filmes = (ILista<Filme>) ordenador.ordenaFilme(filmes);
+		System.out.println("Depois:");
+		mostrarTodasExibicoes(); //Usado apenas para mostrar a ordenacao
+	}
 }

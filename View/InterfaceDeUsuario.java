@@ -1,8 +1,9 @@
 package View;
 
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
-
 import Cinema.Funcionario;
 import Cinema.Horario;
 import Cinema.Sala;
@@ -13,11 +14,9 @@ import Exception.ExceptionOpcaoNaoReconhecida;
 import Exception.ExceptionSalaJaCadastrada;
 import Exception.ExceptionSemHorarioDisponivel;
 import Exception.ExceptionSemNadaCadastrado;
-import Filme.Filme;
 import Filme.Genero;
 import Model.Exibicao;
 import Model.Gerenciamento;
-import Model.ILista;
 import Model.ListaComArrayList;
 
 public class InterfaceDeUsuario {
@@ -25,13 +24,14 @@ public class InterfaceDeUsuario {
 	private Scanner entrada = new Scanner(System.in);
 	
 	private Gerenciamento _gerencia = new Gerenciamento();
+	
 
 	private int escolherCadastro() {
         System.out.println("0.voltar");
 		System.out.println("1.Cadastrar Filme");
 		System.out.println("2.Cadastrar informações de Sala");
         System.out.println("3.Cadastrar Funcionario");
-        System.out.println("4.Cadastrar uma Exibição"); 
+		System.out.println("4.Cadastrar Exibição");
 		return entrada.nextInt();
     }
 
@@ -55,7 +55,8 @@ public class InterfaceDeUsuario {
 
 	int i;
 	public void menu() throws ExceptionHorarioJaCadastrado{
-		
+		_gerencia.carregarDados();
+
 		int opcao = this.escolherOpcao();
 		while(opcao != 0) {
             try{
@@ -66,15 +67,11 @@ public class InterfaceDeUsuario {
 			case 2://Listagem de Informações
 				Listagem();
 			break;
-			case 3://cadastrar um funcionario
-			break;
-			case 4://apresentar informa��es de um filme
-			break;
-			case 5://apresentar informa��es de um funcionario
-			break;
-			case 6://consultar qual sala e horario passar� um filme
+			case 3://Ordenar
+				_gerencia.ordenar();
 			break;
 			default:
+			throw new ExceptionOpcaoNaoReconhecida();
 			 
 			}
         }
@@ -84,6 +81,7 @@ public class InterfaceDeUsuario {
 
 			opcao = this.escolherOpcao();
 		}
+		_gerencia.salvarDados();
 	}
 	
 	private void cadastros(){
@@ -114,22 +112,53 @@ public class InterfaceDeUsuario {
         }
     }
 
-	private void CadastroDeExibicao() throws ExceptionSemNadaCadastrado{
+	private void CadastroDeExibicao() throws ExceptionSemNadaCadastrado, ExceptionSemHorarioDisponivel, ExceptionOpcaoNaoReconhecida{
 		System.out.println("ID de Registro para a Exibição:");
 		int id = entrada.nextInt();
 		System.out.println("ID de Registro do Filme que ira Exibir:");
 		int idFlme = entrada.nextInt();
-		Filme filmeTemp = _gerencia.AtribuirFilme(idFlme);
+		Genero filmeTemp = _gerencia.AtribuirFilme(idFlme);
 		System.out.println("ID de Registro da Sala:");
 		int idSala = entrada.nextInt();
 		Sala tempSala = _gerencia.AtribuirSala(idSala);
 		System.out.println("ID de Registro do Funcionario:");
 		int idFunc = entrada.nextInt();
 		Funcionario tempFunc = _gerencia.AtribuirFunc(idFunc);
+		HorariosDisponiveis(_gerencia.OcupacaHoraio(tempSala));
+		int op = entrada.nextInt();
+		for (int i : _gerencia.OcupacaHoraio(tempSala)) {
+			if(i == op){
+				throw new ExceptionOpcaoNaoReconhecida();
+			}
+		}
+		Horario tempHora;
+		switch(op){
+			case 1:
+			tempHora = new Horario(16, 1);
+				break;
+			case 2:
+			tempHora = new Horario(18, 2);
+				break;
+			case 3:
+			tempHora = new Horario(20, 3);
+				break;
+			case 4:
+			tempHora = new Horario(22, 4);
+				break;
+			case 5:
+			tempHora = new Horario(24, 5);
+				break;
+			default:
+			throw new ExceptionOpcaoNaoReconhecida();
+		}
+
+		Exibicao tempExibicao = new Exibicao(id, filmeTemp, tempFunc, tempSala, tempHora);
+
+		_gerencia.RegistraExibicao(tempExibicao);
 		
 	}
 
-	private void HorariosDisponiveis(int[] horas) throws ExceptionSemHorarioDisponivel{
+	private void HorariosDisponiveis(ArrayList<Integer> horas) throws ExceptionSemHorarioDisponivel{
 		int disp = 0;
 
 		boolean horario1 =true;

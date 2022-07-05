@@ -5,6 +5,7 @@ import java.io.Serializable;
 import Cinema.Funcionario;
 import Cinema.Horario;
 import Cinema.Sala;
+import Filme.Filme;
 import Filme.Genero;
 
 public class Exibicao implements Serializable,Comparable<Exibicao>{
@@ -17,9 +18,9 @@ public class Exibicao implements Serializable,Comparable<Exibicao>{
     private Sala sala;
     private Horario hora;
 
-    public Exibicao(int codigo, Genero filme, Funcionario listaDeFuncionarios, Sala sala, Horario hora) {
+    public Exibicao(int codigo, Genero filmeTemp, Funcionario listaDeFuncionarios, Sala sala, Horario hora) {
         this.codigo = codigo;
-        this.filme = filme;
+        this.filme = filmeTemp;
         this.func = listaDeFuncionarios;
         this.sala = sala;
         this.hora = hora;

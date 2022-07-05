@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
+
 public class ListaComArrayList<T extends Comparable<T>> implements ILista<T>{
 
     private static final long serialVersionUID = 1765L;
@@ -23,6 +24,10 @@ public class ListaComArrayList<T extends Comparable<T>> implements ILista<T>{
         return objetos.get(indice);
     }
 
+    public void set(int indice, T object){
+        objetos.set(indice, object);
+    }
+
     @Override
     public void ordena() {
         T receptor, parametro;
@@ -39,5 +44,5 @@ public class ListaComArrayList<T extends Comparable<T>> implements ILista<T>{
 		}
         
     }
-    
+
 }
