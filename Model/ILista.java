@@ -1,27 +1,18 @@
 package Model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
-import Cinema.Funcionario;
-import Cinema.Horario;
-import Cinema.Sala;
-import Filme.Genero;
-
-public interface ILista {
+public interface ILista<T extends Comparable<T>> extends Serializable{
     
-    public void RegistrarFilme(Genero novoFilme);
+	public void adicionar(T objeto);
+	// adiciona um objeto Produto incluindo-o no final da Lista 
 
-    public void RegistrarFuncionario(Funcionario novoFuncionario);
+	public int tamanho();
+	// retorna o "tamanho" da Lista, ou seja, a quantidade de produtos presentes na Lista
 
-    public void RegistrarHorario(Horario novoHorario);
+	public T get(int indice);
+	// retorna o Produto que est� na posi��o indicada pelo �ndice na Lista
 
-    public void RegistrarSala(Sala novaSala);
+	public void ordena();
 
-    public ArrayList<Funcionario> get_funcionarios();
-
-    public ArrayList<Horario> get_horarios();
-
-    public ArrayList<Sala> get_salas();
-
-    public ArrayList<Genero> get_filmesPorGenero();
 }
