@@ -39,7 +39,5 @@ public abstract class Filme implements Serializable,Comparable<Filme>{
         this.lancamento = lancamento;
     }
    
-    public String toString(){
-        return "ID:" +this.getId()+ "\n Nome:"+ this.getNome();
-    };
+    public abstract String toString();
 }

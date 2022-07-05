@@ -11,6 +11,7 @@ import Exception.ExceptionFuncionarioJaCadastrado;
 import Exception.ExceptionHorarioJaCadastrado;
 import Exception.ExceptionOpcaoNaoReconhecida;
 import Exception.ExceptionSalaJaCadastrada;
+import Exception.ExceptionSemHorarioDisponivel;
 import Exception.ExceptionSemNadaCadastrado;
 import Filme.Filme;
 import Filme.Genero;
@@ -100,6 +101,7 @@ public class InterfaceDeUsuario {
 				CadastroDeFuncionario();
                     break;
                 case 4:// cadastro Exibição
+				CadastroDeExibicao();
                     break;
                 default:
                     throw new ExceptionOpcaoNaoReconhecida();
@@ -112,6 +114,72 @@ public class InterfaceDeUsuario {
         }
     }
 
+	private void CadastroDeExibicao() throws ExceptionSemNadaCadastrado{
+		System.out.println("ID de Registro para a Exibição:");
+		int id = entrada.nextInt();
+		System.out.println("ID de Registro do Filme que ira Exibir:");
+		int idFlme = entrada.nextInt();
+		Filme filmeTemp = _gerencia.AtribuirFilme(idFlme);
+		System.out.println("ID de Registro da Sala:");
+		int idSala = entrada.nextInt();
+		Sala tempSala = _gerencia.AtribuirSala(idSala);
+		System.out.println("ID de Registro do Funcionario:");
+		int idFunc = entrada.nextInt();
+		Funcionario tempFunc = _gerencia.AtribuirFunc(idFunc);
+		
+	}
+
+	private void HorariosDisponiveis(int[] horas) throws ExceptionSemHorarioDisponivel{
+		int disp = 0;
+
+		boolean horario1 =true;
+		boolean horario2 =true;
+		boolean horario3 =true;
+		boolean horario4 =true;
+		boolean horario5 =true;
+		for (int i : horas) {
+			switch(i){
+				case 1:
+				horario1 = false;
+				break;
+				case 2:
+				horario2 = false;
+				break;
+				case 3:
+				horario3 = false;
+				case 4:
+				horario4 = false;
+				case 5:
+				horario5 = false;
+			}
+		}
+		if(horario1){
+		System.out.println("1. 16:00");
+		disp++;
+		}
+		if(horario2){
+		System.out.println("2. 18:00");
+		disp++;
+		}
+		if(horario3){
+		System.out.println("3. 20:00");
+		disp++;
+		}
+		if(horario4){
+		System.out.println("4. 22:00");
+		disp++;
+		}
+		if(horario5){
+		System.out.println("5. 24:00");
+		disp++;
+		}
+
+		if(disp == 0)
+		{
+			throw new ExceptionSemHorarioDisponivel();
+		}
+	}
+	
 	private void Listagem(){
         int opcadastro = escolherListagem();
         while(opcadastro != 0 ){

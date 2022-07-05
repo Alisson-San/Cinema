@@ -43,7 +43,7 @@ public class Genero extends Filme{
 
     @Override
     public String toString() {
-        return "\nFaixaEtaria: " + this.getFaixaEtaria() + "\nGenero: " + this.getGenero();
+        return "\nID:" +this.getId()+ "\n Nome:"+ this.getNome() +"\nFaixaEtaria: " + this.getFaixaEtaria() + "\nGenero: " + this.getGenero()+"\n";
     }
 
 }

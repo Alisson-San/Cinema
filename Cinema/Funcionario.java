@@ -45,6 +45,6 @@ public class Funcionario implements Serializable,Comparable<Funcionario> {
 
     @Override
     public String toString() {
-        return "\nCodigo de Funcionario:" + this.getCodFuncionario() + ",\nNome:" + this.getNome();
+        return "\nCodigo de Funcionario:" + this.getCodFuncionario() + ",\nNome:" + this.getNome()+"\n";
     }
 }

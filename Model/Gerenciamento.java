@@ -95,6 +95,60 @@ public class Gerenciamento implements Serializable{
         return temp;
     }
 
+    public Filme AtribuirFilme(int id){
+        Filme temp = null;
 
+        for(int i = 0; i < filmes.tamanho();i++){
+            temp = filmes.get(i);
+        }
+        return temp;
+    }
 
+    public Sala AtribuirSala(int id){
+        Sala temp = null;
+
+        for(int i = 0; i < filmes.tamanho();i++){
+            temp = salas.get(i);
+        }
+        return temp;
+    }
+
+    public Funcionario AtribuirFunc(int id){
+        Funcionario temp = null;
+
+        for(int i = 0; i < filmes.tamanho();i++){
+            temp = funcionarios.get(i);
+        }
+        return temp;
+    }
+
+    public int[] OcupacaHoraio(Sala auxSala){
+        int[] horarios = null;
+
+        if(exibicoes.tamanho() !=0){
+        for(int i = 0; i < exibicoes.tamanho(); i++){
+            if(exibicoes.get(i).getSala().getNumeroSala() == auxSala.getNumeroSala()){
+                horarios = add_element(exibicoes.get(i).getHora().getCodHorario(), horarios, ele)
+            }
+        }
+    }
+        return null;
+        
+    }
+
+    public static int[] add_element(int n, int myarray[], int ele) 
+    { 
+         int i; 
+ 
+         int newArray[] = new int[n + 1]; 
+        //copy original array into new array
+        for (i = 0; i &lt; n; i++) 
+              newArray[i] = myarray[i]; 
+ 
+        //add element to the new array
+        newArray[n] = ele; 
+ 
+        return newArray; 
+    } 
+ 
 }
