@@ -1,14 +1,15 @@
 package Filme;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public abstract class Filme implements Serializable,Comparable<Filme>{
+    private static final long serialVersionUID = 1L;
+
     private int id;
     private String nome;
-    private Date lancamento;
+    private String lancamento;
 
-    public Filme(int id, String nome, Date lancamento) {
+    public Filme(int id, String nome, String lancamento) {
         this.id = id;
         this.nome = nome;
         this.lancamento = lancamento;
@@ -30,11 +31,11 @@ public abstract class Filme implements Serializable,Comparable<Filme>{
         this.nome = nome;
     }
     
-    public Date getLancamento() {
+    public String getLancamento() {
         return lancamento;
     }
 
-    public void setLancamento(Date lancamento) {
+    public void setLancamento(String lancamento) {
         this.lancamento = lancamento;
     }
    

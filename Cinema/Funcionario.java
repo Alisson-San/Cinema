@@ -3,6 +3,7 @@ package Cinema;
 import java.io.Serializable;
 
 public class Funcionario implements Serializable,Comparable<Funcionario> {
+    private static final long serialVersionUID = 30L;
     private int codFuncionario;
     private String nome;
 

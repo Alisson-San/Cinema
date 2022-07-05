@@ -1,13 +1,10 @@
 package Filme;
-
-import java.util.Date;
-
 public class Genero extends Filme{
     
     private String genero;
     private int faixaEtaria;
 
-    public Genero(int id, String nome, Date lancamento, String genero, int faixaEtaria) {
+    public Genero(int id, String nome, String lancamento, String genero, int faixaEtaria) {
         super(id, nome, lancamento);
         this.genero = genero;
         this.faixaEtaria = faixaEtaria;

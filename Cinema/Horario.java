@@ -3,6 +3,7 @@ package Cinema;
 import java.io.Serializable;
 
 public class Horario implements Serializable,Comparable<Horario> {
+    private static final long serialVersionUID = 20L;
 
     private int Horario;
     private int CodHorario;

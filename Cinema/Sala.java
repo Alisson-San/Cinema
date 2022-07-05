@@ -3,6 +3,7 @@ package Cinema;
 import java.io.Serializable;
 
 public class Sala implements Serializable,Comparable<Sala>{
+    private static final long serialVersionUID = 10L;
     private int numeroSala;
     private String nome;
     private int capacidade;
