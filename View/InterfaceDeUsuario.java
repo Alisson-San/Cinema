@@ -11,9 +11,13 @@ import Exception.ExceptionFuncionarioJaCadastrado;
 import Exception.ExceptionHorarioJaCadastrado;
 import Exception.ExceptionOpcaoNaoReconhecida;
 import Exception.ExceptionSalaJaCadastrada;
+import Exception.ExceptionSemNadaCadastrado;
+import Filme.Filme;
 import Filme.Genero;
 import Model.Exibicao;
 import Model.Gerenciamento;
+import Model.ILista;
+import Model.ListaComArrayList;
 
 public class InterfaceDeUsuario {
 	
@@ -33,12 +37,21 @@ public class InterfaceDeUsuario {
     private int escolherOpcao() {
 		System.out.println("0.Sair");
 		System.out.println("1.Cadastros");
-		System.out.println("2.Listagem de Cadastros");
+		System.out.println("2.Listagem de Informações");
 		System.out.println("3.Listar Todas as Exibições");
         System.out.println("4.Verificar Horarios de Exibição de um Filme");
 		return entrada.nextInt();
 	}
 	
+	private int escolherListagem() {
+		System.out.println("0.Sair");
+		System.out.println("1.Exibições");
+		System.out.println("2.Filmes");
+		System.out.println("3.Funcionarios");
+        System.out.println("4.Salas");
+		return entrada.nextInt();
+	}
+
 	int i;
 	public void menu() throws ExceptionHorarioJaCadastrado{
 		
@@ -49,7 +62,8 @@ public class InterfaceDeUsuario {
 			case 1://Cadastros
                 cadastros();
 			break;
-			case 2://cadastrar uma sala
+			case 2://Listagem de Informações
+				Listagem();
 			break;
 			case 3://cadastrar um funcionario
 			break;
@@ -97,6 +111,94 @@ public class InterfaceDeUsuario {
             opcadastro = escolherCadastro();
         }
     }
+
+	private void Listagem(){
+        int opcadastro = escolherListagem();
+        while(opcadastro != 0 ){
+			try {
+            switch(opcadastro){
+                case 1: // Exibição
+				ListarExibicoes();
+                    break;
+                case 2: //  Filme
+				ListarFilmes();
+                    break;
+                case 3:// Funcionario
+				ListarFuncionarios();
+                    break;
+                case 4:// Sala
+				ListarSalas();
+                    break;
+                default:
+                    throw new ExceptionOpcaoNaoReconhecida();
+			}
+				}
+				catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+            opcadastro = escolherListagem();
+        }
+    }
+
+	private void ListarFilmes() throws ExceptionSemNadaCadastrado {
+
+		ListaComArrayList listaFilmes = new ListaComArrayList<>();
+		listaFilmes = _gerencia.ListaDeFilmes();
+
+		if(listaFilmes.tamanho() == 0){
+		throw new ExceptionSemNadaCadastrado();
+		}
+		else{
+		for(int i = 0 ; i < listaFilmes.tamanho();i++){
+			System.out.println(listaFilmes.get(i).toString());
+		}
+	}
+	}
+
+	private void ListarSalas() throws ExceptionSemNadaCadastrado {
+
+		ListaComArrayList listaSalas = new ListaComArrayList<>();
+		listaSalas = _gerencia.ListaDeSalas();
+
+		if(listaSalas.tamanho() == 0){
+		throw new ExceptionSemNadaCadastrado();
+		}
+		else{
+		for(int i = 0 ; i < listaSalas.tamanho();i++){
+			System.out.println(listaSalas.get(i).toString());
+		}
+	}
+	}
+
+	private void ListarFuncionarios() throws ExceptionSemNadaCadastrado {
+
+		ListaComArrayList listarFuncionarios = new ListaComArrayList<>();
+		listarFuncionarios = _gerencia.ListaDeFuncionarios();
+
+		if(listarFuncionarios.tamanho() == 0){
+		throw new ExceptionSemNadaCadastrado();
+		}
+		else{
+		for(int i = 0 ; i < listarFuncionarios.tamanho();i++){
+			System.out.println(listarFuncionarios.get(i).toString());
+		}
+	}
+	}
+
+	private void ListarExibicoes() throws ExceptionSemNadaCadastrado {
+
+		ListaComArrayList listaExibicoes = new ListaComArrayList<>();
+		listaExibicoes = _gerencia.ListaDeExibições();
+
+		if(listaExibicoes.tamanho() == 0){
+		throw new ExceptionSemNadaCadastrado();
+		}
+		else{
+		for(int i = 0 ; i < listaExibicoes.tamanho();i++){
+			System.out.println(listaExibicoes.get(i).toString());
+		}
+	}
+	}
 
 	private void CadastroDeFuncionario() throws ExceptionFuncionarioJaCadastrado {
 		System.out.println("Codigo de Registro de Funcionario no Cinema:");

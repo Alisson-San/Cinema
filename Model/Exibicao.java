@@ -66,6 +66,10 @@ public class Exibicao implements Serializable,Comparable<Exibicao>{
         this.filme = filme;
     }
 
+    public String toString(){
+        return "Registro:" + this.getCodigo() + "\nFilme:" + this.getFilme().toString() + "\nHorario:" + this.getHora().getHorario() + "\nSala: " + this.getSala().toString();
+    }
+
     @Override
     public int compareTo(Exibicao o) {
         int codigoReceptor = this.getCodigo();

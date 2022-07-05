@@ -2,6 +2,7 @@ package Model;
 
 import java.io.Serializable;
 
+
 import Cinema.Funcionario;
 import Cinema.Horario;
 import Cinema.Sala;
@@ -16,6 +17,8 @@ public class Gerenciamento implements Serializable{
     private static final long serialVersionUID = 234L;
 	private ILista<Exibicao> exibicoes = new ListaComArrayList<Exibicao>();
     private ILista<Filme> filmes = new ListaComArrayList<Filme>();
+
+
     private ILista<Funcionario> funcionarios = new ListaComArrayList<Funcionario>();
     private ILista<Sala> salas = new ListaComArrayList<Sala>();
 
@@ -55,5 +58,43 @@ public class Gerenciamento implements Serializable{
 
         salas.adicionar(sala);
     }
+
+    public ListaComArrayList ListaDeFilmes(){
+
+        ListaComArrayList temp = new ListaComArrayList<>();
+        for(int i = 0; i < filmes.tamanho();i++){
+            temp.adicionar(filmes.get(i));
+        }
+        return temp;
+    }
+
+    public ListaComArrayList ListaDeExibições(){
+
+        ListaComArrayList temp = new ListaComArrayList<>();
+        for(int i = 0; i < exibicoes.tamanho();i++){
+            temp.adicionar(exibicoes.get(i));
+        }
+        return temp;
+    }
+
+    public ListaComArrayList ListaDeSalas(){
+
+        ListaComArrayList temp = new ListaComArrayList<>();
+        for(int i = 0; i < salas.tamanho();i++){
+            temp.adicionar(salas.get(i));
+        }
+        return temp;
+    }
+
+    public ListaComArrayList ListaDeFuncionarios(){
+
+        ListaComArrayList temp = new ListaComArrayList<>();
+        for(int i = 0; i < funcionarios.tamanho();i++){
+            temp.adicionar(funcionarios.get(i));
+        }
+        return temp;
+    }
+
+
 
 }

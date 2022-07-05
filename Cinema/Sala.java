@@ -52,5 +52,10 @@ public class Sala implements Serializable,Comparable<Sala>{
 		}
 		return 0;
     }
+
+    @Override
+    public String toString() {
+        return "\nCapacidade:" + this.getCapacidade() + "\nNome:" + this.getNome() + ",\nNumero da Sala:" + this.getNumeroSala();
+    }
     
 }
