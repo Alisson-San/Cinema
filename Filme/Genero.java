@@ -29,4 +29,19 @@ public class Genero extends Filme{
         this.genero = genero;
     }
 
+    @Override
+    public int compareTo(Filme o) {
+        int codigoReceptor = this.getId();
+		int codigoParametro = o.getId();
+		if(codigoReceptor < codigoParametro) {
+			return -1;
+		}
+		else {
+			if(codigoReceptor > codigoParametro) {
+				return 1;
+			}
+		}
+		return 0;
+    }
+
 }

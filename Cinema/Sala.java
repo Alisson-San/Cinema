@@ -1,6 +1,8 @@
 package Cinema;
 
-public class Sala {
+import java.io.Serializable;
+
+public class Sala implements Serializable,Comparable<Sala>{
     private int numeroSala;
     private String nome;
     private int capacidade;
@@ -33,6 +35,21 @@ public class Sala {
 
     public void setNumeroSala(int numeroSala) {
         this.numeroSala = numeroSala;
+    }
+
+    @Override
+    public int compareTo(Sala o) {
+        int codigoReceptor = this.getNumeroSala();
+		int codigoParametro = o.getNumeroSala();
+		if(codigoReceptor < codigoParametro) {
+			return -1;
+		}
+		else {
+			if(codigoReceptor > codigoParametro) {
+				return 1;
+			}
+		}
+		return 0;
     }
     
 }

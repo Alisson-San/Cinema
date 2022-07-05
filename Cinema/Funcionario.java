@@ -1,6 +1,8 @@
 package Cinema;
 
-public class Funcionario {
+import java.io.Serializable;
+
+public class Funcionario implements Serializable,Comparable<Funcionario> {
     private int codFuncionario;
     private String nome;
 
@@ -23,5 +25,20 @@ public class Funcionario {
 
     public void setCodFuncionario(int codFuncionario) {
         this.codFuncionario = codFuncionario;
+    }
+
+    @Override
+    public int compareTo(Funcionario o) {
+        int codigoReceptor = this.getCodFuncionario();
+		int codigoParametro = o.getCodFuncionario();
+		if(codigoReceptor < codigoParametro) {
+			return -1;
+		}
+		else {
+			if(codigoReceptor > codigoParametro) {
+				return 1;
+			}
+		}
+		return 0;
     }
 }

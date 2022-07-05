@@ -11,12 +11,13 @@ import Exception.ExceptionFilmeJaCadastrado;
 import Exception.ExceptionHorarioJaCadastrado;
 import Filme.Genero;
 import Model.Exibicao;
+import Model.Gerenciamento;
 
 public class InterfaceDeUsuario {
 	
 	private Scanner entrada = new Scanner(System.in);
 	
-	private Exibicao exibir = new Exibicao();
+	private Gerenciamento exibir = new Gerenciamento();
 	
 	int i;
 	public void menu() throws ExceptionHorarioJaCadastrado{
@@ -29,20 +30,17 @@ public class InterfaceDeUsuario {
                 cadastros();
 			break;
 			case 2://cadastrar uma sala
-				this.cadastroDeSala();
 			break;
 			case 3://cadastrar um funcionario
-				this.cadastroDeFuncionario();
 			break;
 			case 4://apresentar informa��es de um filme
-				this.apresentarFilmes();
 			break;
 			case 5://apresentar informa��es de um funcionario
-				this.apresentarFuncionario();
 			break;
 			case 6://consultar qual sala e horario passar� um filme
-				this.consultarSalas();
 			break;
+			default:
+			 
 			}
         }
         catch(Exception e){
@@ -59,16 +57,12 @@ public class InterfaceDeUsuario {
           
             switch(opcadastro){
                 case 1:
-                    cadastroDeFilme();
                     break;
                 case 2:
-                    cadastroDeSala();
                     break;
                 case 3:
-                    cadastroDeHorario();
                     break;
                 case 4:
-                    cadastroDeFuncionario();
                     break;
                 case 5:
                     cadastroDeExibicao();
@@ -103,90 +97,6 @@ public class InterfaceDeUsuario {
     private void cadastroDeExibicao() {
     }
 
-    private void cadastroDeHorario() throws ExceptionHorarioJaCadastrado {
-        System.out.println("Digite um codigo de horario de exibição: ");
-        int codHorario = entrada.nextInt();
-        System.out.println("Digite um horario: ");
-        int novoHorario = entrada.nextInt();
-        while(novoHorario < 0 || novoHorario > 24){
-            System.out.println("O horario deve ser entre 0 e 23, Digite novamente o horario: ");
-            novoHorario = entrada.nextInt();
-        }
-
-        ArrayList<Horario> Horarios = exibir.listaDeHorarios();
-    
-        for (Horario horario : Horarios) {
-            if(horario.getCodHorario() == codHorario || novoHorario == horario.getHorario()){
-                throw new ExceptionHorarioJaCadastrado();
-            }
-        }
-
-        exibir.InserirHorario(novoHorario, codHorario);
-
-    }
 	
-	private void cadastroDeFilme() throws ParseException, ExceptionFilmeJaCadastrado {
-		entrada.nextLine();
-		System.out.println("ID do Filme (apenas digitos)");
-		int id = entrada.nextInt();
-		entrada.nextLine();
-		System.out.println("Nome do Filme");
-		String nomeFime = entrada.nextLine();
-		System.out.println("Digite a data no formato: dd/MM/yyyy");
-		String data = entrada.nextLine();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = formatter.parse(data);
-		System.out.println("Digite o genero do filme");
-		String genero = entrada.nextLine();
-		System.out.println("Digite a faixa etaria do filme");
-		int faixaEtaria = entrada.nextInt();
-		
-		ArrayList<Genero> Filmes = exibir.getFilmes();
-
-		for (Genero filme : Filmes) {
-			if(filme.getId() == id || filme.getNome() == nomeFime){
-				throw new ExceptionFilmeJaCadastrado();
-			}
-		}
-		
-		exibir.InserirFilme(id, nomeFime, date, genero, faixaEtaria);
-		
-	}
-	
-	private void cadastroDeSala() {
-		entrada.nextLine();
-		System.out.println("Digite o nome da sala");
-		String nome = entrada.nextLine();
-		System.out.println("Digite o numero da sala");
-		int numeroSala = entrada.nextInt();
-		System.out.println("Digite a capacidade da sala");
-		int capacidade = entrada.nextInt();
-		
-		exibir.InserirSala(numeroSala, nome, capacidade);
-	}
-	
-	private void cadastroDeFuncionario() {
-		entrada.nextLine();
-		System.out.println("Digite o nome do funcionario");
-		String nome = entrada.nextLine();
-		System.out.println("Digite o codigo de funcionario");
-		int codFuncionario = entrada.nextInt();
-		
-		exibir.InserirFuncionario(codFuncionario, nome);
-	}
-
-	private void apresentarFilmes() {
-		exibir.ListarFilmes(null);
-		
-	}
-
-	private void apresentarFuncionario() {
-	
-	}
-
-	
-	private void consultarSalas() {
-		
-	}
 	
 }

@@ -1,6 +1,8 @@
 package Cinema;
 
-public class Horario {
+import java.io.Serializable;
+
+public class Horario implements Serializable,Comparable<Horario> {
 
     private int Horario;
     private int CodHorario;
@@ -24,5 +26,20 @@ public class Horario {
 
     public void setHorario(int horario) {
         Horario = horario;
+    }
+
+    @Override
+    public int compareTo(Horario o) {
+        int codigoReceptor = this.getCodHorario();
+		int codigoParametro = o.getCodHorario();
+		if(codigoReceptor < codigoParametro) {
+			return -1;
+		}
+		else {
+			if(codigoReceptor > codigoParametro) {
+				return 1;
+			}
+		}
+        return 0;
     }    
 }

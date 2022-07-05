@@ -1,8 +1,9 @@
 package Filme;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class Filme{
+public abstract class Filme implements Serializable,Comparable<Filme>{
     private int id;
     private String nome;
     private Date lancamento;
